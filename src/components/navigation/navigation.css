@@ -1,0 +1,24 @@
+nav {
+    display: flex;
+    justify-content: flex-end;
+    padding: 30px 50px;
+    color: white;
+    background: rgb(44,47,57);
+    background: linear-gradient(37deg, rgba(44,47,57,1) 0%, rgba(0,0,0,1) 8%, rgba(80,83,92,1) 100%);
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.active-link {
+    color: var(--color-primary);
+    border-bottom: 1px solid var(--color-primary);
+}
+
+.default-link {
+    color: #FFFFFF;
+    border-bottom: 1px solid transparent;
+}
