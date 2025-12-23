@@ -1,13 +1,13 @@
 nav {
     display: flex;
-    justify-content: flex-end;
-    padding: 30px 50px;
+    justify-content: space-between;
+    padding: 15px 50px;
     color: white;
     background: rgb(44,47,57);
     background: linear-gradient(37deg, rgba(44,47,57,1) 0%, rgba(0,0,0,1) 8%, rgba(80,83,92,1) 100%);
 }
 
-ul {
+.nav-bar {
     list-style: none;
     display: flex;
     gap: 30px;
@@ -21,4 +21,8 @@ ul {
 .default-link {
     color: #FFFFFF;
     border-bottom: 1px solid transparent;
+}
+
+img {
+    max-height: 30px;
 }
