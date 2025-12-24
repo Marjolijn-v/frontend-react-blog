@@ -15,11 +15,13 @@ nav {
 
 .active-link {
     color: var(--color-primary);
+    text-decoration: none;
     border-bottom: 1px solid var(--color-primary);
 }
 
 .default-link {
     color: #FFFFFF;
+    text-decoration: none;
     border-bottom: 1px solid transparent;
 }
 

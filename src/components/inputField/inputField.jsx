@@ -1,15 +1,18 @@
-function InputField( { label, details, type, name, value, onChange}) {
+import './inputField.css'
+
+function InputField( { label, id, type, name, value, onChange}) {
     return (
-        <label htmlFor={details}>
-            {label}
+        <div className="input-field">
+            <label htmlFor={id}>{label}</label>
             <input
                 type={type}
-                id={details}
+                id={id}
                 name={name}
                 value={value}
                 onChange={onChange}
             />
-        </label>
+
+        </div>
     )
 }
 

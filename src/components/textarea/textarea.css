@@ -1,0 +1,11 @@
+.message-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-field textarea {
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
