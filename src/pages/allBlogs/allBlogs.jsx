@@ -1,5 +1,4 @@
 import './allBlogs.css'
-import posts from '../../constants/data.json';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {useEffect, useState} from "react";
@@ -20,7 +19,7 @@ function AllBlogs() {
                     'novi-education-project-id': '2767c1c3-13ff-45b7-a2b7-6870077651b3',
                 }
             });
-            // console.log(response);
+            console.log(response);
             setAllBlogposts(response.data);
             setError('');
 
