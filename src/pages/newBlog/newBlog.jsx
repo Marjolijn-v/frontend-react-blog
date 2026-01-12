@@ -3,21 +3,23 @@ import InputField from "../../components/inputField/inputField.jsx";
 import {useState} from "react";
 import Textarea from "../../components/textarea/textarea.jsx";
 import readTime from "../../helpers/readTime.js";
-import {useNavigate} from "react-router-dom";
+// import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 
 
 function NewBlog() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [error, setError] = useState('');
     const [messageError, setMessageError] = useState('');
     const [formState, setFormState] = useState({
         blogtitle: '',
         subtitle: '',
         author: '',
-        message: '',
+        content: '',
     });
+    const [blogContent, setBlogContent] = useState({});
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -25,37 +27,38 @@ function NewBlog() {
         setMessageError('');
         setError('');
 
-        if (!formState.blogtitle || !formState.subtitle || !formState.author || !formState.message) {
+        if (!formState.blogtitle || !formState.subtitle || !formState.author || !formState.content) {
             setError('Alle velden zijn verplicht');
             return;
         }
 
-        if (formState.message.length < 300) {
+        if (formState.content.length < 300) {
             setMessageError('Blog moet minimaal 300 tekens bevatten');
             return;
         }
 
-        if (formState.message.length > 2000) {
+        if (formState.content.length > 2000) {
             setMessageError('Blog mag maximaal 2000 tekens bevatten');
             return;
         }
 
         try {
             const response = await axios.post('https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts', {
-                    "title": `${formState.blogtitle}`,
-                    "subtitle": `${formState.subtitle}`,
-                    "message": `${formState.message}`,
-                    "author": `${formState.author}`,
-                    "created": `${created}`,
-                    "readtime": `${readTime(formState.message)}`,
-                    "comments": 0,
-                    "shares": 0
+                    title: `${formState.blogtitle}`,
+                    subtitle: `${formState.subtitle}`,
+                    content: `${formState.content}`,
+                    author: `${formState.author}`,
+                    created: `${created}`,
+                    readTime: `${readTime(formState.content)}`,
+                    comments: 0,
+                    shares: 0
                 }, {
                     headers: {
                         'novi-education-project-id': '2767c1c3-13ff-45b7-a2b7-6870077651b3',
+                        'content-type': 'application/json'
                     }
                 });
-            setFormState(response);
+            setBlogContent(response.data);
 
         } catch (error) {
             console.error(error);
@@ -75,15 +78,15 @@ function NewBlog() {
         console.log(`
             title: ${formState.blogtitle}
             subtitle: ${formState.subtitle}
-            message: ${formState.message}
+            content: ${formState.content}
             author: ${formState.author}
             created: ${created}
-            readtime: ${readTime(formState.message)}
+            readTime: ${readTime(formState.content)}
             comments: 0
             shares: 0
         `);
 
-        navigate('/overzicht');
+        // navigate('/overzicht');
     }
 
     function handleChange(e) {
@@ -104,6 +107,11 @@ function NewBlog() {
         <>
             <h1>Post toevoegen</h1>
 
+            {blogContent && blogContent.id ? (
+                <h2>De blogpost is succesvol toegevoegd. Je kunt deze <Link to={`/blogs/${blogContent.id}`}> hier</Link> bekijken.</h2>
+
+            ) : (
+
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <InputField
@@ -111,7 +119,7 @@ function NewBlog() {
                         id="blog-title"
                         type="text"
                         name="blogtitle"
-                        value={formState.blogtitle}
+                        value={blogContent.blogtitle}
                         onChange={handleChange}
                     />
 
@@ -120,7 +128,7 @@ function NewBlog() {
                         id="blog-subtitle"
                         type="text"
                         name="subtitle"
-                        value={formState.subtitle}
+                        value={blogContent.subtitle}
                         onChange={handleChange}
                 />
 
@@ -129,19 +137,19 @@ function NewBlog() {
                         id="blog-author"
                         type="text"
                         name="author"
-                        value={formState.author}
+                        value={blogContent.author}
                         onChange={handleChange}
                 />
 
                     <Textarea
                         label="Bericht"
-                        id="blog-message"
-                        name="message"
+                        id="blog-content"
+                        name="content"
                         rows={10}
                         cols={50}
                         minLength={300}
                         maxLength={2000}
-                        value={formState.message}
+                        value={blogContent.content}
                         onChange={handleChange}
                         error={messageError}
                 />
@@ -149,6 +157,7 @@ function NewBlog() {
                 <button type="submit" className="new-blog-button">Verzenden</button>
                 {error && <p className="error">{error}</p>}
             </form>
+            )}
         </>
     );
 }
