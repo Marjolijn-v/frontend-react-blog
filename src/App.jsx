@@ -16,7 +16,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/nieuw" element={<NewBlog/>}/>
                     <Route path="/overzicht" element={<AllBlogs/>}/>
-                    <Route path="/blogs/:title" element={<BlogpostPage/>}/>
+                    <Route path="/blogs/:id" element={<BlogpostPage/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </div>

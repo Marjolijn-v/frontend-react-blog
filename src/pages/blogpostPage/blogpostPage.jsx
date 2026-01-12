@@ -2,13 +2,13 @@ import './blogpostPage.css'
 import {Link, useParams} from "react-router-dom";
 
 import {useEffect, useState} from "react";
-// import formattedDate from "../../helpers/formattedDate.js";
 import axios from "axios";
+import formattedDate from "../../helpers/formattedDate.js";
 
 
 function BlogpostPage() {
 
-    // const [blogpost, setBlogpost] = useState(null);
+    const [blogpost, setBlogpost] = useState([]);
     const [error, setError] = useState('');
     const { id } = useParams();
 
@@ -17,18 +17,18 @@ function BlogpostPage() {
             // const response = posts.find((post) => {
             //     return post.id === id;
             // });
-            const response = await axios.get('https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts', {
+            const response = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts?id=${id}`, {
                 headers: {
                     'novi-education-project-id': '2767c1c3-13ff-45b7-a2b7-6870077651b3',
                 },
-                params: {
-                    id: id,
-                },
+                // params: {
+                //     id: id,
+                // },
             });
             console.log(response.data);
             setError('');
 
-            // setBlogpost(response);
+            setBlogpost(response.data);
 
         } catch (e) {
             console.error(e);
@@ -43,17 +43,32 @@ function BlogpostPage() {
 
     return (
         <>
-
-            <button onClick={fetchBlogpost}>Haal blog op!</button>
-            <article>
-                {/*<h1>{blogpost.title}</h1>*/}
-                {/*<h2>{blogpost?.subtitle}</h2>*/}
-                {/*<p>Geschreven door {blogpost?.author} op {formattedDate(blogpost?.created)}</p>*/}
-                {/*<p>{blogpost.content}</p>*/}
-                {/*<p>{blogpost.comments} reactie - {blogpost?.shares} keer gedeeld</p>*/}
-                <Link to="/overzicht" className="link-to-all-blogs"> Terug naar overzicht</Link>
-            </article>
             {error && <p>{error}</p>}
+            <ul className="">
+                {blogpost?.length > 0 && blogpost.map((blog) => {
+                    return <li key={blog.id}>
+                        <article>
+                            <h1>{blog?.title}</h1>
+                            <h2>{blog?.subtitle}</h2>
+                            <p>Geschreven door {blog?.author} op {formattedDate(blog)}</p>
+                            <p>{blog?.content}</p>
+                            <p>{blog?.comments} reactie - {blog?.shares} keer gedeeld</p>
+                        </article>
+                    </li>
+                })}
+                <li>
+
+                </li>
+            </ul>
+            <Link to="/overzicht" className="link-to-all-blogs"> Terug naar overzicht</Link>
+
+
+
+            {/*/!*<button onClick={fetchBlogpost}>Haal blog op!</button>*!/*/}
+
+
+
+
         </>
     );
 }
