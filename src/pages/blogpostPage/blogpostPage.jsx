@@ -10,6 +10,7 @@ function BlogpostPage() {
 
     const [blogpost, setBlogpost] = useState([]);
     const [error, setError] = useState('');
+    const [loading, toggleLoading] = useState(false);
     const { id } = useParams();
 
     async function fetchBlogpost() {
@@ -17,22 +18,36 @@ function BlogpostPage() {
             // const response = posts.find((post) => {
             //     return post.id === id;
             // });
+            toggleLoading(true);
+            setError('');
             const response = await axios.get(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts?id=${id}`, {
                 headers: {
                     'novi-education-project-id': '2767c1c3-13ff-45b7-a2b7-6870077651b3',
-                },
-                // params: {
-                //     id: id,
-                // },
+                }
             });
             console.log(response.data);
-            setError('');
-
             setBlogpost(response.data);
 
         } catch (e) {
             console.error(e);
             setError('Er is iets mis gegaan bij het laden van de blogpost')
+        } finally {
+            toggleLoading(false);
+        }
+    }
+
+    async function deleteBlogpost() {
+        try {
+            const response = await axios.delete(`https://novi-backend-api-wgsgz.ondigitalocean.app/api/blogposts?id=${id}`, {
+                headers: {
+                    'novi-education-project-id': '2767c1c3-13ff-45b7-a2b7-6870077651b3',
+                }
+            });
+            response.status === 204 && setBlogpost(allBlogposts.filter(blogpost => blogpost.id !== id));
+            console.log("De blogpost is verwijderd.")
+
+        } catch (error) {
+            console.error(error);
         }
     }
 
@@ -60,7 +75,8 @@ function BlogpostPage() {
 
                 </li>
             </ul>
-            <Link to="/overzicht" className="link-to-all-blogs"> Terug naar overzicht</Link>
+            <button type="button" className="" onClick={deleteBlogpost}>Verwijder deze post</button>
+            <Link to="/overzicht" className="link-to-all-blogs" aria-disabled={loading}> Terug naar overzicht</Link>
 
 
 

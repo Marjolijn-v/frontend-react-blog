@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 function NewBlog() {
     // const navigate = useNavigate();
     const [error, setError] = useState('');
+    const [loading, toggleLoading] = useState(false);
     const [messageError, setMessageError] = useState('');
     const [formState, setFormState] = useState({
         blogtitle: '',
@@ -26,6 +27,7 @@ function NewBlog() {
         const created = new Date().toISOString();
         setMessageError('');
         setError('');
+        toggleLoading(true);
 
         if (!formState.blogtitle || !formState.subtitle || !formState.author || !formState.content) {
             setError('Alle velden zijn verplicht');
@@ -64,6 +66,8 @@ function NewBlog() {
             console.error(error);
             setError('Er is iets misgegaan bij het opslaan van de blogpost');
 
+        } finally {
+            toggleLoading(false);
         }
 
 
@@ -154,7 +158,7 @@ function NewBlog() {
                         error={messageError}
                 />
                 </fieldset>
-                <button type="submit" className="new-blog-button">Verzenden</button>
+                <button type="submit" className="new-blog-button" disabled={loading}>Verzenden</button>
                 {error && <p className="error">{error}</p>}
             </form>
             )}
