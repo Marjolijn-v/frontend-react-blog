@@ -4,6 +4,7 @@ import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import formattedDate from "../../helpers/formattedDate.js";
+import allBlogs from "../allBlogs/allBlogs.jsx";
 
 
 function BlogpostPage() {
@@ -43,8 +44,9 @@ function BlogpostPage() {
                     'novi-education-project-id': '2767c1c3-13ff-45b7-a2b7-6870077651b3',
                 }
             });
-            response.status === 204 && setBlogpost(allBlogposts.filter(blogpost => blogpost.id !== id));
-            console.log("De blogpost is verwijderd.")
+            response.status === 204 && setBlogpost(allBlogs.filter(blogpost => blogpost.id !== id));
+            //hoe kom ik bij allBlogposts uit de allBlogs functie.
+            console.log("De blogpost is verwijderd.");
 
         } catch (error) {
             console.error(error);
