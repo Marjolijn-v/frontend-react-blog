@@ -1,10 +1,11 @@
 /*In dit bestand plaats je alle algemene styling die geldt voor de gehele applicatie*/
 
 :root {
-  --color-primary: #38E991;
-  --color-secondary: #2C2F39;
-  --color-tertiary: #50535C;
-  --color-white: #FFFFFF;
+    --color-primary: #38E991;
+    --color-secondary: #2C2F39;
+    --color-tertiary: #50535C;
+    --color-white: #FFFFFF;
+    --color-background: lightgrey;
 }
 
 * {
@@ -55,3 +56,5 @@ h4 {
 p {
   margin-block: 0.5em;
 }
+
+

@@ -1,0 +1,37 @@
+.list-of-blogs {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.list-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-white);
+    border-radius: 10px;
+    margin: 5px;
+    padding-left: 15px;
+}
+
+.card-title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 40px;
+}
+
+h3 {
+    margin-right: 15px;
+    color: var(--color-primary);
+}
+
+.link-to-blog {
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+.link-to-blog:hover {
+    text-decoration: underline;
+    color: var(--color-primary);
+}

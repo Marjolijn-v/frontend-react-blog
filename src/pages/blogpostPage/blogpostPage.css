@@ -1,0 +1,9 @@
+.link-to-all-blogs {
+    text-decoration: none;
+    color: var(--color-primary);
+}
+
+.link-to-all-blogs:hover {
+    text-decoration: underline;
+    color: var(--color-primary);
+}
